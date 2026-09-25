@@ -25,6 +25,7 @@ Mục tiêu cuối cùng:
 - Hiểu pipeline Machine Learning cơ bản
 - Biết cách xử lý và trực quan hóa dữ liệu
 - Xây dựng và đánh giá nhiều model
+- Hiểu Neural Network, MLP và CNN
 - So sánh Logistic Regression, MLP và CNN
 - Tạo submission cho Kaggle
 - Hoàn thiện project để đưa lên GitHub/portfolio
@@ -64,6 +65,24 @@ data/
 └── test.csv
 ```
 
+Mỗi ảnh trong dataset:
+
+```text
+28 × 28 pixels
+```
+
+Tương ứng:
+
+```text
+784 pixel features
+```
+
+Label là chữ số từ:
+
+```text
+0 → 9
+```
+
 ---
 
 ## Cài đặt
@@ -92,8 +111,18 @@ Windows PowerShell:
 ### 4. Cài thư viện
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
+
+Các thư viện chính được sử dụng trong project:
+
+- NumPy
+- Pandas
+- Matplotlib
+- Scikit-learn
+- TensorFlow / Keras
+
+TensorFlow được sử dụng từ giai đoạn Neural Network, MLP và CNN.
 
 ---
 
@@ -111,7 +140,7 @@ git pull origin main
 Ví dụ:
 
 ```bash
-git checkout -b feature/step-05-data-inspection
+git checkout -b feature/step-23-cnn-baseline
 ```
 
 ### Sau khi hoàn thành
@@ -119,21 +148,29 @@ git checkout -b feature/step-05-data-inspection
 ```bash
 git status
 git add .
-git commit -m "Load and inspect dataset"
-git push -u origin feature/step-05-data-inspection
+git commit -m "Add CNN baseline"
+git push -u origin feature/step-23-cnn-baseline
 ```
 
 Quy trình:
 
 ```text
+Pull main mới nhất
+        ↓
+Tạo branch riêng
+        ↓
+Code / Experiment
+        ↓
+Commit
+        ↓
 Push branch
-    ↓
+        ↓
 Create Pull Request
-    ↓
+        ↓
 Người còn lại review
-    ↓
+        ↓
 Merge vào main
-    ↓
+        ↓
 Cả hai pull main mới nhất
 ```
 
@@ -164,24 +201,111 @@ Cả hai pull main mới nhất
 | 1 | README ban đầu | Done |
 | 2 | Project structure | Done |
 | 3 | Tải Kaggle dataset | Done |
-| 4–15 | ML fundamentals + Logistic Regression | In Progress |
-| 16–20 | Neural Network + MLP | Not Started |
-| 21–26 | Computer Vision + CNN | Not Started |
+| 4–15 | ML fundamentals + Logistic Regression | Done |
+| 16–20 | Neural Network + MLP | Done |
+| 21–22 | Chuẩn bị kiến thức Computer Vision / CNN | Done |
+| 23 | CNN baseline | In Progress |
+| 24–26 | CNN evaluation + improvement | Not Started |
 | 27 | So sánh các model | Not Started |
 | 28–30 | Inference + Kaggle Submission | Not Started |
 | 31–34 | Results + README + Cleanup | Not Started |
 
 ---
 
-## Models
+## Các model
+
+### Logistic Regression
+
+Model baseline đầu tiên của project.
+
+Các nội dung đã thực hiện:
+
+- Chia train / validation
+- Normalize dữ liệu
+- Train Logistic Regression
+- Đánh giá train accuracy và validation accuracy
+- Phân tích generalization và overfitting
+- Confusion Matrix
+- Phân tích các cặp chữ số dễ bị dự đoán nhầm
+
+---
+
+### Multi-Layer Perceptron
+
+Neural Network đầu tiên của project.
+
+Các nội dung đã thực hiện:
+
+- Xây dựng MLP bằng TensorFlow / Keras
+- Dense layers
+- ReLU activation
+- Softmax output
+- Forward propagation
+- Loss
+- Backpropagation
+- Optimizer
+- Train và validation accuracy
+- Thử nghiệm thay đổi kiến trúc MLP
+
+---
+
+### Convolutional Neural Network
+
+Giai đoạn hiện tại của project.
+
+CNN nhận input dưới dạng:
+
+```text
+28 × 28 × 1
+```
+
+thay vì vector:
+
+```text
+784
+```
+
+Kiến trúc baseline:
+
+```text
+Input Image
+    ↓
+Conv2D
+    ↓
+ReLU
+    ↓
+MaxPooling2D
+    ↓
+Flatten
+    ↓
+Dense
+    ↓
+Softmax
+    ↓
+10 classes
+```
+
+Mục tiêu:
+
+- Hiểu convolution
+- Hiểu filter / kernel
+- Hiểu feature map
+- Hiểu pooling
+- Hiểu cách CNN giữ thông tin không gian của ảnh
+- Xây dựng CNN baseline
+- Đánh giá CNN trên validation set
+
+---
+
+## Kết quả model
 
 | Model | Validation Accuracy | Kaggle Score | Status |
 |---|---:|---:|---|
-| Logistic Regression | — | — | Not Started |
-| MLP | — | — | Not Started |
-| CNN | — | — | Not Started |
+| Logistic Regression | — | — | Done |
+| MLP | — | — | Done |
+| CNN | — | — | In Progress |
 
-Bảng này sẽ được cập nhật trong quá trình thực hiện project.
+Các giá trị accuracy và Kaggle score sẽ được cập nhật từ kết quả thực tế trong notebook.
 
 ---
 
@@ -198,15 +322,56 @@ Hai thành viên luân phiên vai trò **driver** và **reviewer** trong từng 
 
 ## Trạng thái hiện tại
 
-Đã hoàn thành **Step 3 — Project setup + Kaggle dataset**.
-
-Tiếp theo:
+Đã hoàn thành:
 
 ```text
-Step 4
-Google ML Crash Course
-Intro + Linear Regression
+Data Exploration
+        ↓
+Logistic Regression
+        ↓
+Generalization / Overfitting
+        ↓
+Model Evaluation
+        ↓
+Neural Network Fundamentals
+        ↓
+MLP
 ```
+
+Hiện tại:
+
+```text
+Step 23
+CNN Baseline
+```
+
+Đang thực hiện:
+
+```text
+MNIST image
+28 × 28 × 1
+      ↓
+   Conv2D
+      ↓
+MaxPooling2D
+      ↓
+   Flatten
+      ↓
+    Dense
+      ↓
+10-class prediction
+```
+
+Mục tiêu của Step 23:
+
+- Chuẩn bị dữ liệu cho CNN
+- Reshape `784 → 28 × 28 × 1`
+- Hiểu `Conv2D`
+- Hiểu filter và kernel
+- Hiểu `MaxPooling2D`
+- Hiểu `Flatten`
+- Xem `model.summary()`
+- Xây dựng và train CNN baseline đầu tiên
 
 ---
 
